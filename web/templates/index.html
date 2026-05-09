@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Трекер достижений</h1>
+    <p>Ставьте цели, достигайте их и получайте баллы</p>
+    {% if not user %}
+    <div class="mt-4">
+        <a href="/register" class="btn btn-secondary me-2">Регистрация</a>
+        <a href="/login" class="btn btn-secondary">Вход</a>
+    </div>
+    {% else %}
+    <div class="mt-4">
+        <a href="/goals" class="btn btn-secondary">Мои цели</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

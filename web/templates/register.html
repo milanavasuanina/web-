@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h2 class="text-center mb-4">Регистрация</h2>
+            <form method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ form.name.label(class="form-label") }}
+                    {{ form.name(class="form-control") }}
+                    {% for error in form.name.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }}
+                    {{ form.email(class="form-control") }}
+                    {% for error in form.email.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ form.password.label(class="form-label") }}
+                    {{ form.password(class="form-control") }}
+                    {% for error in form.password.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ form.confirm.label(class="form-label") }}
+                    {{ form.confirm(class="form-control") }}
+                    {% for error in form.confirm.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+                </div>
+                {{ form.submit(class="btn btn-primary w-100") }}
+                <div class="text-center mt-3"><a href="/login">Уже есть аккаунт? Войдите</a></div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

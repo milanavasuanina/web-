@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Мои цели</title>
+    <style>
+        body { background-color: #f5f5f5; }
+        .card { border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .btn { border-radius: 4px; padding: 6px 16px; font-weight: 500; }
+        .btn-outline { background: transparent; border: 1px solid #ddd; color: #333; }
+        .btn-outline:hover { background: #f5f5f5; }
+        .goal-item { border-left: 3px solid #007bff; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 style="color: #2c3e50;">Мои цели</h2>
+                            <a href="/goals/add" class="btn btn-primary">+ Добавить цель</a>
+                        </div>
+                        
+                        {% if my_goals %}
+                            {% for goal in my_goals %}
+                                <div class="goal-item p-3 bg-white" style="border-radius: 6px;">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div style="flex: 1;">
+                                            <h5 class="mb-1">{{ goal.title }}</h5>
+                                            {% if goal.image %}
+                                                <img src="/static/uploads/{{ goal.image }}" alt="Image" class="img-thumbnail mt-2" style="max-width: 100px; max-height: 100px;">
+                                            {% endif %}
+                                            {% if goal.description %}
+                                                <p class="text-muted small mb-2">{{ goal.description }}</p>
+                                            {% endif %}
+                                            <div class="small text-muted">
+                                                Создана: {{ goal.created_date.strftime('%d.%m.%Y') }}
+                                                {% if goal.is_completed %}
+                                                    <span class="badge bg-success ms-2">Выполнена</span>
+                                                {% else %}
+                                                    <span class="badge bg-secondary ms-2">В процессе</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="mb-2 fw-bold" style="color: #007bff;">{{ goal.points }} баллов</div>
+                                            <div>
+                                                {% if not goal.is_completed %}
+                                                    <a href="/goals/complete/{{ goal.id }}" class="btn btn-sm btn-primary">Выполнить</a>
+                                                {% endif %}
+                                                <a href="/goals/edit/{{ goal.id }}" class="btn btn-sm btn-outline">Изменить</a>
+                                                <a href="/goals/delete/{{ goal.id }}" class="btn btn-sm btn-outline" onclick="return confirm('Удалить цель?')">Удалить</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-5">
+                                <p class="text-muted mb-3">У вас пока нет целей</p>
+                                <a href="/goals/add" class="btn btn-primary">Создать первую цель</a>
+                            </div>
+                        {% endif %}
+                        
+                        <hr class="mt-4">
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="/profile" class="btn btn-outline">Назад в профиль</a>
+                            <a href="/" class="btn btn-outline">На главную</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
